@@ -1,6 +1,9 @@
-#include "raylib.h"
+// Jak chcesz mogę komentarze pisać po polsku, a potem ci podesłać link na GitHuba
 
-#define BG_COLOR (Color){128, 92, 80}
+#include "Player.hpp"
+
+#define BG_MENU_COLOR (Color){100, 92, 80}
+#define BG_GAME_COLOR (Color){150, 100, 200}
 
 enum class GameStates
 {
@@ -14,16 +17,21 @@ const int screenWidth = 1920, screenHeight = 1080;
 // Init state
 GameStates gameState = GameStates::MENU;
 
+// Dodajemy naszego gracza, ale żeby zaistniał w programie, musimy zrobić jego obiekt
+Player player;
+
 // Initialize components
 void init_window();
 void init();
 
 // Update states
 void update_menu();
+void update_game();
 void update();
 
 // Render states
 void render_menu();
+void render_game();
 void render();
 
 // Deinitialize
@@ -50,12 +58,21 @@ void init_window()
 }
 void init()
 {
+    player.init();
+
     init_window();
 }
 
 void update_menu()
 {
-
+    if(IsKeyPressed(KEY_ENTER))
+    {
+        gameState = GameStates::GAME;
+    }
+}
+void update_game()
+{
+    player.update();
 }
 void update()
 {
@@ -65,13 +82,21 @@ void update()
         update_menu();
         break;
     case GameStates::GAME:
+        update_game();
         break;
     }
 }
 
 void render_menu()
 {
-    ClearBackground(BG_COLOR);
+    ClearBackground(BG_MENU_COLOR);
+// Dziwne trochę, że nie działa z kolorem customowym
+    DrawText("Grim Jumper", screenWidth / 2, screenHeight / 2, 60, WHITE);
+    DrawText("Menu", screenWidth / 2, screenHeight / 2 + 60, 30, WHITE);
+}
+void render_game()
+{
+    player.render();
 }
 void render()
 {
@@ -82,6 +107,7 @@ void render()
         render_menu();
         break;
     case GameStates::GAME:
+        render_game();
         break;
     }
     EndDrawing();
@@ -89,5 +115,7 @@ void render()
 
 void deinit()
 {
+    player.deinit();
+
     CloseWindow();
 }
