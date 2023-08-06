@@ -1,17 +1,26 @@
 #include "raylib.h"
 
+enum class GameStates
+{
+    MENU,
+    GAME,
+};
+
 // Screen size
 const int screenWidth = 1920, screenHeight = 1080;
+
+// Init state
+GameStates gameState = GameStates::MENU;
 
 // Initialize components
 void init_window();
 void init();
 
-// Update
+// Update states
 
-// Render
+// Render states
 
-// Initialize
+// Deinitialize
 
 int main()
 {
