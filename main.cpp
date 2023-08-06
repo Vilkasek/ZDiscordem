@@ -17,14 +17,27 @@ void init_window();
 void init();
 
 // Update states
+void update_menu();
+void update();
 
 // Render states
+void render_menu();
+void render();
 
 // Deinitialize
+void deinit();
 
 int main()
 {
     init();
+
+    while(!WindowShouldClose())
+    {
+        update();
+        render();
+    }
+
+    deinit();
 }
 
 void init_window()
@@ -36,4 +49,41 @@ void init_window()
 void init()
 {
     init_window();
+}
+
+void update_menu()
+{
+
+}
+void update()
+{
+    switch(gameState)
+    {
+    case GameStates::MENU:
+        update_menu();
+        break;
+    case GameStates::GAME:
+        break;
+    }
+}
+
+void render_menu()
+{
+
+}
+void render()
+{
+    switch(gameState)
+    {
+    case GameStates::MENU:
+        render_menu();
+        break;
+    case GameStates::GAME:
+        break;
+    }
+}
+
+void deinit()
+{
+    CloseWindow();
 }
