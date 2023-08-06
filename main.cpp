@@ -1,5 +1,7 @@
 #include "raylib.h"
 
+#define BG_COLOR (Color){128, 92, 80}
+
 enum class GameStates
 {
     MENU,
@@ -69,10 +71,11 @@ void update()
 
 void render_menu()
 {
-
+    ClearBackground(BG_COLOR);
 }
 void render()
 {
+    BeginDrawing();
     switch(gameState)
     {
     case GameStates::MENU:
@@ -81,6 +84,7 @@ void render()
     case GameStates::GAME:
         break;
     }
+    EndDrawing();
 }
 
 void deinit()
